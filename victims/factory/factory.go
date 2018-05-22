@@ -44,7 +44,6 @@ func EligibleVictims() (eligibleVictims []victims.Victim, err error) {
 		if err != nil {
 			//allow pass through to schedule other kinds and namespaces
 			glog.Warningf("Failed to fetch eligible deployments for namespace %s due to error: %s", namespace, err.Error())
-			continue
 		}
 		eligibleVictims = append(eligibleVictims, deployments...)
 
@@ -53,7 +52,6 @@ func EligibleVictims() (eligibleVictims []victims.Victim, err error) {
 		if err != nil {
 			//allow pass through to schedule other kinds and namespaces
 			glog.Warningf("Failed to fetch eligible statefulsets for namespace %s due to error: %s", namespace, err.Error())
-			continue
 		}
 		eligibleVictims = append(eligibleVictims, statefulsets...)
 
@@ -62,7 +60,6 @@ func EligibleVictims() (eligibleVictims []victims.Victim, err error) {
 		if err != nil {
 			//allow pass through to schedule other kinds and namespaces
 			glog.Warningf("Failed to fetch eligible daemonsets for namespace %s due to error: %s", namespace, err.Error())
-			continue
 		}
 		eligibleVictims = append(eligibleVictims, daemonsets...)
 
@@ -71,7 +68,6 @@ func EligibleVictims() (eligibleVictims []victims.Victim, err error) {
 		if err != nil {
 			//allow pass through to schedule other kinds and namespaces
 			glog.Warningf("Failed to fetch eligible services for namespace %s due to error: %s", namespace, err.Error())
-			continue
 		}
 		eligibleVictims = append(eligibleVictims, services...)
 	}
