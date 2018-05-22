@@ -7,7 +7,7 @@ import (
 	"github.com/asobti/kube-monkey/config"
 	"github.com/asobti/kube-monkey/victims"
 
-	"k8s.io/api/apps/v1"
+	"k8s.io/api/core/v1"
 )
 
 type Service struct {

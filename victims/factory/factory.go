@@ -13,6 +13,7 @@ import (
 	"github.com/asobti/kube-monkey/victims"
 	"github.com/asobti/kube-monkey/victims/factory/daemonsets"
 	"github.com/asobti/kube-monkey/victims/factory/deployments"
+	"github.com/asobti/kube-monkey/victims/factory/services"
 	"github.com/asobti/kube-monkey/victims/factory/statefulsets"
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"

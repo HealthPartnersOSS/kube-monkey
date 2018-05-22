@@ -18,7 +18,7 @@ import (
 
 // Get all eligible services that opted in (filtered by config.EnabledLabel)
 func EligibleServices(clientset kube.Interface, namespace string, filter *metav1.ListOptions) (eligVictims []victims.Victim, err error) {
-	enabledVictims, err := clientset.AppsV1().Services(namespace).List(*filter)
+	enabledVictims, err := clientset.CoreV1().Services(namespace).List(*filter)
 	if err != nil {
 		return nil, err
 	}
@@ -47,7 +47,7 @@ func EligibleServices(clientset kube.Interface, namespace string, filter *metav1
 
 // Checks if the service is currently enrolled in kube-monkey
 func (d *Service) IsEnrolled(clientset kube.Interface) (bool, error) {
-	service, err := clientset.AppsV1().Services(d.Namespace()).Get(d.Name(), metav1.GetOptions{})
+	service, err := clientset.CoreV1().Services(d.Namespace()).Get(d.Name(), metav1.GetOptions{})
 	if err != nil {
 		return false, nil
 	}
@@ -56,7 +56,7 @@ func (d *Service) IsEnrolled(clientset kube.Interface) (bool, error) {
 
 // Returns current killtype config label for update
 func (d *Service) KillType(clientset kube.Interface) (string, error) {
-	service, err := clientset.AppsV1().Services(d.Namespace()).Get(d.Name(), metav1.GetOptions{})
+	service, err := clientset.CoreV1().Services(d.Namespace()).Get(d.Name(), metav1.GetOptions{})
 	if err != nil {
 		return "", err
 	}
@@ -71,7 +71,7 @@ func (d *Service) KillType(clientset kube.Interface) (string, error) {
 
 // Returns current killvalue config label for update
 func (d *Service) KillValue(clientset kube.Interface) (int, error) {
-	service, err := clientset.AppsV1().Services(d.Namespace()).Get(d.Name(), metav1.GetOptions{})
+	service, err := clientset.CoreV1().Services(d.Namespace()).Get(d.Name(), metav1.GetOptions{})
 	if err != nil {
 		return -1, err
 	}
