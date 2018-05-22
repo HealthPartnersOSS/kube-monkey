@@ -64,6 +64,15 @@ func EligibleVictims() (eligibleVictims []victims.Victim, err error) {
 			continue
 		}
 		eligibleVictims = append(eligibleVictims, daemonsets...)
+
+		//Fetch Pods
+		pods, err := pods.EligibleDeployments(clientset, namespace, filter)
+		if err != nil {
+			//allow pass through to schedule other kinds and namespaces
+			glog.Warningf("Failed to fetch eligible deployments for namespace %s due to error: %s", namespace, err.Error())
+			continue
+		}
+		eligibleVictims = append(eligibleVictims, deployments...)
 	}
 
 	return
