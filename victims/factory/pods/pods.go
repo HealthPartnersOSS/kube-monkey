@@ -45,22 +45,22 @@ type Pod struct {
 	*victims.VictimBase
 }
 
-// Create a new instance of Deployment
-func New(dep *v1.Pod) (*Pod, error) {
-	ident, err := identifier(dep)
+// Create a new instance of Pod
+func New(pod *v1.Pod) (*Pod, error) {
+	ident, err := identifier(pod)
 	if err != nil {
 		return nil, err
 	}
-	mtbf, err := meanTimeBetweenFailures(dep)
+	mtbf, err := meanTimeBetweenFailures(pod)
 	if err != nil {
 		return nil, err
 	}
-	kind := fmt.Sprintf("%T", *dep)
+	kind := fmt.Sprintf("%T", *pod)
 
-	return &Pod{victims.New(kind, dep.Name, dep.Namespace, ident, mtbf)}, nil
+	return &Pod{victims.New(kind, pod.Name, pod.Namespace, ident, mtbf)}, nil
 }
 
-// Checks if the deployment is currently enrolled in kube-monkey
+// Checks if the pod is currently enrolled in kube-monkey
 func (p *Pod) IsEnrolled(clientset kube.Interface) (bool, error) {
 	pod, err := clientset.CoreV1().Pods(p.Namespace()).Get(p.Name(), metav1.GetOptions{})
 	//.Pods(d.Namespace()).Get(d.Name(), metav1.GetOptions{})
